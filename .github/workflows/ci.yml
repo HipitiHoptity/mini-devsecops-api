@@ -2,9 +2,11 @@ name: DevSecOps CI
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
   pull_request:
-    branches: [ main ]
+    branches:
+      - main
 
 jobs:
   security-pipeline:
@@ -30,20 +32,20 @@ jobs:
         with:
           file_or_dir: deployment.yaml
 
-            - name: Trivy filesystem scan
+      - name: Trivy filesystem scan
         uses: aquasecurity/trivy-action@v0.35.0
         with:
           scan-type: fs
           scan-ref: .
           format: table
-          exit-code: 0
+          exit-code: "0"
 
       - name: Trivy image scan
         uses: aquasecurity/trivy-action@v0.35.0
         with:
           image-ref: mini-devsecops-api:latest
           format: table
-          exit-code: 0
+          exit-code: "0"
 
       - name: Install Conftest
         run: |
