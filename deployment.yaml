@@ -12,11 +12,15 @@ spec:
       labels:
         app: mini-devsecops-api
     spec:
+      securityContext:
+        runAsNonRoot: true
       containers:
         - name: mini-devsecops-api
           image: mini-devsecops-api:latest
           ports:
             - containerPort: 3000
+          securityContext:
+            allowPrivilegeEscalation: false
 ---
 apiVersion: v1
 kind: Service
